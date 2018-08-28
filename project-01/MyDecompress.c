@@ -14,8 +14,6 @@ int main(){
     while(!feof(pReadFile)){
         char currentLine[255] = "";
         fgets(currentLine, 255, pReadFile);
-        printf("last index of line: %lu\n", strlen(currentLine) - 1);
-        printf("size of line: %lu\n", strlen(currentLine));
         int i;
         for(i = 0; i < (strlen(currentLine) + 1); i++){
             if(currentLine[i] == '1'){
@@ -25,20 +23,17 @@ int main(){
             }else if(currentLine[i] == '+'){
                 int distance = calculateSignDist(i + 1, currentLine, currentLine[i]);
                 int nextIndex = distance + 1;
-                // int number = getNumber(i + 1, ((i + nextIndex) - 2), currentLine);
                 int number = getNumber(i + 1, ((i + nextIndex)), currentLine);
                 appendCharNTimes(number, decompressed, '1');
                 i += nextIndex; 
             }else if(currentLine[i] == '-'){
                 int distance = calculateSignDist(i + 1, currentLine, currentLine[i]);
                 int nextIndex = distance + 1;
-                // int number = getNumber(i + 1, (i + nextIndex) - 2, currentLine);
                 int number = getNumber(i + 1, (i + nextIndex), currentLine);
                 appendCharNTimes(number, decompressed, '0');
                 i += nextIndex;    
             }
         }
-        printf("i at the end: %d\n", i);
         strcat(decompressed, "\n");
     } // end of while loop
     printf("%s", decompressed);
