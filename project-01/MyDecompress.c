@@ -24,20 +24,19 @@ int main(){
                 strcat(decompressed, "0");
             }else if(currentLine[i] == '+'){
                 int distance = calculateSignDist(i + 1, currentLine, currentLine[i]);
-                int nextIndex = distance + 3;
-                int number = getNumber(i + 1, ((i + nextIndex) - 2), currentLine);
+                int nextIndex = distance + 1;
+                // int number = getNumber(i + 1, ((i + nextIndex) - 2), currentLine);
+                int number = getNumber(i + 1, ((i + nextIndex)), currentLine);
                 appendCharNTimes(number, decompressed, '1');
                 i += nextIndex; 
             }else if(currentLine[i] == '-'){
                 int distance = calculateSignDist(i + 1, currentLine, currentLine[i]);
-                int nextIndex = distance + 3;
-                int number = getNumber(i + 1, (i + nextIndex) - 2, currentLine);
+                int nextIndex = distance + 1;
+                // int number = getNumber(i + 1, (i + nextIndex) - 2, currentLine);
+                int number = getNumber(i + 1, (i + nextIndex), currentLine);
                 appendCharNTimes(number, decompressed, '0');
                 i += nextIndex;    
             }
-            // if(i > (strlen(currentLine) - 1)){
-            //     i = i - 3;
-            // }
         }
         printf("i at the end: %d\n", i);
         strcat(decompressed, "\n");
