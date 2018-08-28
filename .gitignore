@@ -1,0 +1,6 @@
+*
+!.gitignore
+!project-01
+!project-01/**/*.c
+!project-01/**/*.txt
+
