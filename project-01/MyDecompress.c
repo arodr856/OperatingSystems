@@ -7,9 +7,12 @@ int getNumber(int startIndex, int endIndex, char * str);
 void appendCharToStr(char *str, char val);
 void appendCharNTimes(int n, char *str, char valueToAppend);
 
-int main(){
-    FILE *pReadFile = fopen("compressed.txt", "r");
-    FILE *pWriteFile = fopen("decompressed.txt", "w");
+int main(int argc, char **argv){
+    // FILE *pReadFile = fopen("compressed.txt", "r");
+    // FILE *pWriteFile = fopen("decompressed.txt", "w");
+    FILE *pReadFile = fopen(argv[1], "r");
+    FILE *pWriteFile = fopen(argv[2], "w");
+
     char decompressed[600] = "";
     while(!feof(pReadFile)){
         char currentLine[255] = "";

@@ -6,9 +6,11 @@ void printChar(char value);
 void appendCharToStr(char *str, char val);
 char* constructString(int value, char* sign);
 
-int main(){
-    FILE * filePointer = fopen("data.txt", "r");
-    FILE * savePointer = fopen("compressed.txt", "w");
+int main(int argc, char **argv){
+    // FILE * filePointer = fopen("data.txt", "r");
+    // FILE * savePointer = fopen("compressed.txt", "w");
+    FILE * filePointer = fopen(argv[1], "r");
+    FILE * savePointer = fopen(argv[2], "w");
     char compressedFile[500] = "";
     while(!feof(filePointer)){
         char line[255] = "";  
