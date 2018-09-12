@@ -10,7 +10,7 @@ char* compressFile(char **string_pointers,  int numberOfLines);
 
 int main(int argc, char **argv){
     FILE * savePointer = fopen(argv[2], "w");
-    char* string_pointers[3];
+    char* string_pointers[100];
     int lineCount = readFile(argv[1], string_pointers);
     char * compressedFile = compressFile(string_pointers, lineCount);
 
