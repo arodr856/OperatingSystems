@@ -13,7 +13,8 @@ char* constructString(int value, char* sign);
 int main(int argc, char **argv){
 
     FILE *readPointer = fopen(argv[1], "r");
-    int numOfProcs = *argv[2] - '0'; // change later
+    FILE *writePointer = fopen(argv[2], "w");
+    int numOfProcs = *argv[3] - '0'; 
 
     char *fileLines[100];
     int lineCount = 0;
@@ -45,14 +46,17 @@ int main(int argc, char **argv){
 
     wait(NULL);
 
+    char compressed[600];
     char strFromProcesses[numOfProcs][100];
     for(int i = 0; i < numOfProcs; i++){
         close(pipesfd[i][1]);
         read(pipesfd[i][0], &strFromProcesses[i], 100);
-        printf("%s", strFromProcesses[i]);
+        strcat(compressed, strFromProcesses[i]);
         close(pipesfd[i][0]);
     } // end of for loop
     
+    fprintf(writePointer, "%s", compressed);
+    printf("%s", compressed);
     fclose(readPointer);
     return 0;
 } // end of main
