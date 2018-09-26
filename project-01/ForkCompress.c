@@ -13,7 +13,6 @@ int main(int argc, char **argv){
         printf("We are in the child process. . .\n");
         execl("./MyCompress", "CompressFile", argv[1], argv[2], NULL);
         printf("Child process is finsishing. .  .\n");
-
         exit(0);
     }
 
