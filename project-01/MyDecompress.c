@@ -39,7 +39,8 @@ int main(int argc, char **argv){
         }
         strcat(decompressed, "\n");
     } // end of while loop
-    printf("%s", decompressed);
+    fprintf(pWriteFile, "%s", decompressed);
+    // printf("%s", decompressed);
     return 0;
 }
 
