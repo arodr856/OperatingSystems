@@ -1,3 +1,8 @@
+/*
+ * The purpose of this program is to read in a file and compress the data into a file.
+ * The reading of the file is done in the parent processs but then is distributed to the other processes
+ * evenly by dividing the number of lines by the number of processes.
+ */ 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -12,8 +17,8 @@ char* constructString(int value, char* sign);
 
 int main(int argc, char **argv){
 
-    FILE *readPointer = fopen(argv[1], "r");
-    FILE *writePointer = fopen(argv[2], "w");
+    FILE *readPointer = fopen(argv[1], "r"); // file to read from
+    FILE *writePointer = fopen(argv[2], "w"); // file to write data to
     int numOfProcs = *argv[3] - '0'; 
 
     char *fileLines[100];
@@ -36,10 +41,10 @@ int main(int argc, char **argv){
         if(process_id < 0){
             printf("An error has occured. . .");
         }else if(process_id == 0){
-            int startingIndex = ((i - 1) * valsPerProc) + valsPerProc;
-            int endingIndex = startingIndex + valsPerProc;
-            char* proccessCompressedLine = compressFile(fileLines, startingIndex, endingIndex);
-            write(pipesfd[i][1], proccessCompressedLine, 100);
+            int startingIndex = ((i - 1) * valsPerProc) + valsPerProc; // calculates which index this process should start compressing data from
+            int endingIndex = startingIndex + valsPerProc; // last index this process will compress data for
+            char* proccessCompressedLine = compressFile(fileLines, startingIndex, endingIndex); // compress the lines starting from startingIndex until endingIndex
+            write(pipesfd[i][1], proccessCompressedLine, 100); // write the the compresses string to the pipe
             exit(0);
         }
     } // end of for loop
@@ -48,7 +53,7 @@ int main(int argc, char **argv){
 
     char compressed[600];
     char strFromProcesses[numOfProcs][100];
-    for(int i = 0; i < numOfProcs; i++){
+    for(int i = 0; i < numOfProcs; i++){ // iterate numOfProc times reading from the corresponding pipe
         close(pipesfd[i][1]);
         read(pipesfd[i][0], &strFromProcesses[i], 100);
         strcat(compressed, strFromProcesses[i]);
