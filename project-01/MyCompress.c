@@ -5,16 +5,38 @@
 void printChar(char value);
 void appendCharToStr(char *str, char val);
 char* constructString(int value, char* sign);
+int readFile(char *fileName, char **string_pointers);
+char* compressFile(char **string_pointers,  int numberOfLines);
 
 int main(int argc, char **argv){
-    // FILE * filePointer = fopen("data.txt", "r");
-    // FILE * savePointer = fopen("compressed.txt", "w");
-    FILE * filePointer = fopen(argv[1], "r");
     FILE * savePointer = fopen(argv[2], "w");
-    char compressedFile[500] = "";
+    char* string_pointers[100];
+    int lineCount = readFile(argv[1], string_pointers);
+    char * compressedFile = compressFile(string_pointers, lineCount);
+
+    fprintf(savePointer,"%s", compressedFile);
+    fclose(savePointer);
+    return 0;
+}
+
+int readFile(char *fileName, char **string_pointers){
+    FILE * filePointer = fopen(fileName, "r");
+    int count = 0;
+    char *line;
     while(!feof(filePointer)){
-        char line[255] = "";  
+        line = malloc(255 * sizeof(char));
         fgets(line, 255, filePointer);
+        string_pointers[count] = line;
+        count++;
+    }
+    fclose(filePointer);
+    return count;
+}
+
+char* compressFile(char **string_pointers, int numberOfLines){
+    char *compressedFile = malloc(500 * sizeof(char));
+    for(int i = 0; i < numberOfLines; i++){
+        char *line = string_pointers[i];
         for(int i = 0; i < strlen(line) - 1; i++){
             char currentValue = line[i];
             char justInCase[75] = "";
@@ -43,13 +65,10 @@ int main(int argc, char **argv){
             }else{ 
                 appendCharToStr(compressedFile, currentValue);
             }
-        } // end of for loop
+        } /* end of for loop */
         appendCharToStr(compressedFile, '\n');  
-    } // end of while loop
-    fprintf(savePointer,"%s", compressedFile);
-    fclose(savePointer);
-    fclose(filePointer);
-    return 0;
+    } /* end of for loop */
+   return compressedFile;
 }
 
 void appendCharToStr(char *str, char val){
