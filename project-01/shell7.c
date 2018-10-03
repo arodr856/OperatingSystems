@@ -17,7 +17,6 @@ void explode_command(char *command, char **parts, uint16_t max_parts);
 bool is_exit_command(char **parts);
 void execute_command(char **parts);
 
-#include "MoreShell.h"
 
 int main(int argc, char const *argv[]) {
 	/* Create buffer for command */
