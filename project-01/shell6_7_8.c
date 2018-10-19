@@ -95,7 +95,7 @@ void execute(char **argv){
 	
 	//we are copying the second half after |
     	while(argv[x] != NULL){
-        	strcpy(_arg[k], argv[x]);
+        	strcpy(_arg[x], argv[x]); // was k
         	x++;
         	a++;
 	}

@@ -18,7 +18,7 @@ struct arg_struct {
 
 int main(int argc, char **argv) {
 	FILE *readPointer = fopen(argv[1], "r");
-	FILE *writePointer = fopen(argv[2], "w");
+	FILE *writePointer = fopen(argv[2], "a");
 	int numOfProcs = *argv[3] - '0';
 	int ret[numOfProcs];
 	pthread_t thread[numOfProcs];
@@ -43,13 +43,15 @@ int main(int argc, char **argv) {
 			return -1;
 		 }
 	}
-
+    
 	for (int i = 0; i < (numOfProcs); i++) {
 		pthread_join(thread[i], NULL);
+        printf("%s",args.processedCompressedLine);
+        fprintf(writePointer, "%s", args.processedCompressedLine);
 	}
-
-	fprintf(writePointer, "%s", args.processedCompressedLine);
-	printf("%s",args.processedCompressedLine);
+   
+	// fprintf(writePointer, "%s", args.processedCompressedLine);
+	// printf("%s",args.processedCompressedLine);
 	fclose(readPointer);
 
 	return 0;
