@@ -4,4 +4,9 @@
 !project-01/**/*.c
 !project-01/**/*.txt
 !project-01/Makefile
+!project-02
+!project-02/**/*.c
+!project-02/**/*.txt
+!project-02/Makefile
+
 
