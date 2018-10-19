@@ -42,16 +42,15 @@ int main(int argc, char **argv) {
 			printf("Uh-oh!\n");
 			return -1;
 		 }
+
 	}
     
 	for (int i = 0; i < (numOfProcs); i++) {
 		pthread_join(thread[i], NULL);
-        printf("%s",args.processedCompressedLine);
-        fprintf(writePointer, "%s", args.processedCompressedLine);
+		printf("%s",args.processedCompressedLine);
+		fprintf(writePointer, "%s", args.processedCompressedLine);
 	}
-   
-	// fprintf(writePointer, "%s", args.processedCompressedLine);
-	// printf("%s",args.processedCompressedLine);
+
 	fclose(readPointer);
 
 	return 0;
