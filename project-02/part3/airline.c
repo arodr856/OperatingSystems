@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 #include "passenger.h"
 
 int main(int argc, char *argv[]) {
@@ -11,6 +12,18 @@ int main(int argc, char *argv[]) {
 	p = createPassengers(numberOfPassengers);
 	int passengerNumber = p[0].number;		
 	printf("Passenger #%d\n", passengerNumber);
+
+	int numberReturned[numberOfPassengers];
+	pthread_t passengerThread[numberOfPassengers];
+
+//  int numberReturned[numberOfBaggageHandlers];
+//  pthread_t baggageHandlerThread[numberOfBaggageHandlers];
+  
+// int numberReturned[numberOfSecurityScreeners];
+//  pthread_t securityScreenerThread[numberOfSecurityScreeners];
+
+//int numberReturned[numberOfFlightAttendents];
+//  pthread_t flightAttendentThread[numberOfFlightAttendents];
 
 	return 0;
 }
