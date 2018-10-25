@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-typedef struct passenger {
+typedef struct airplane_passenger {
 	int number;
 	bool waiting; 
 	bool baggageChecked;
@@ -11,10 +11,10 @@ typedef struct passenger {
 	bool seated;
 } passenger;
 
-void numberOfPassengers(int num);
-bool isWaiting(passenger p);
-void checkBaggage(passenger p);
-void screen(passenger p);
-void seat(passenger p);
-void relaxed(passenger p);
+passenger *numberOfPassengers(passenger *p, int numberOfPassengers);
+bool isWaiting(passenger *p);
+void checkBaggage(passenger *p);
+void screen(passenger *p);
+void seat(passenger *p);
+void relaxed(passenger *p);
 #endif
