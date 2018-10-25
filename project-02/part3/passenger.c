@@ -13,7 +13,7 @@ void checkBaggage(passenger p) {
 }
 
 void screen(passenger p) {
-	p.screen = true;
+	p.screened = true;
 }
 
 void seat(passenger p) {
@@ -21,6 +21,6 @@ void seat(passenger p) {
 }
 
 void relaxed(passenger p) {
-	if (p.baggageChecked == true && p.screen == true && p.seat == true) 
+	if (p.baggageChecked == true && p.screened == true && p.seated == true) 
 		p.waiting = false;
 }
