@@ -1,12 +1,19 @@
 #include "passenger.h"
+#include <stdlib.h>
 
 
-passenger *numberOfPassengers(passenger *p, int numberOfPassengers) {
+passenger *numberOfPassengers(int numberOfPassengers) {
+	passenger *passengers = (passenger *) malloc(sizeof(passenger) * numberOfPassengers);
 	for (int i = 0; i < numberOfPassengers; i++) {
-		passenger passengers;
-		p[i] = passengers;
-	}
-	return p;
+		passenger p;
+		p.number = i;
+		p.waiting = true;
+		p.baggageChecked = false;
+		p.screened = false;
+		p.seated = false;
+		passengers[i] =  p;
+		}	
+	return passengers;
 }
 
 bool isWaiting(passenger *p) {
