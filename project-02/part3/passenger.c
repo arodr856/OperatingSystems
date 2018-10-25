@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 
-passenger *numberOfPassengers(int numberOfPassengers) {
+passenger *createPassengers(int numberOfPassengers) {
 	passenger *passengers = (passenger *) malloc(sizeof(passenger) * numberOfPassengers);
 	for (int i = 0; i < numberOfPassengers; i++) {
 		passenger p;
