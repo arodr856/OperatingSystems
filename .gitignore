@@ -12,3 +12,4 @@
 !project-02/**/*.txt
 !project-02/Makefile
 !project-02/**/*.pdf
+!project-02/**/*.h
