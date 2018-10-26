@@ -18,12 +18,10 @@ sem_t *father_sem;
 
 int main(int argc, char **argv){
 
+    
     mother_mutex = sem_open("m_sem", O_CREAT, 0644, 1);
     father_sem = sem_open("f_sem", O_CREAT, 0644, 0);
 
-    
-
-   
     pthread_t f_thread;
     pthread_t m_thread;
 
@@ -32,6 +30,7 @@ int main(int argc, char **argv){
     
     pthread_join(m_thread, NULL);
     pthread_join(f_thread, NULL);
+    
     sem_unlink("m_sem");
     sem_unlink("f_sem");
     
@@ -41,13 +40,17 @@ int main(int argc, char **argv){
 
 void *mother_thread(void *vargp){ 
     
-    sem_wait(mother_mutex);
-	for(int task = 0; task < 5; task++){
-        for(int child = 0; child < 3; child++){
-            printf("Child #%d was %s\n", (child + 1), mother_tasks[task]);
-            usleep(100);
-            if(task == 4){
-                sem_post(father_sem);
+    
+    for(int day = 0; day < 100; day++){
+        sem_wait(mother_mutex);
+        printf("this is day #%d of a day in the life of Mother Hubbard\n", (day + 1));
+        for(int task = 0; task < 5; task++){
+            for(int child = 0; child < 3; child++){
+                printf("Child #%d was %s\n\n", (child + 1), mother_tasks[task]);
+                usleep(100);
+                if(task == 4){
+                    sem_post(father_sem);
+                }
             }
         }
     }
@@ -55,15 +58,16 @@ void *mother_thread(void *vargp){
 } 
 
 void *father_thread(void *vargp){ 
-
     // sem_wait(father_sem);
-    for(int child = 0; child <3; child++){
-        sem_wait(father_sem);
-        for(int task = 0; task < 2; task++){
-            printf("Child #%d was %s\n", (child + 1), father_tasks[task]);
+    for(int day = 0; day < 100; day++){
+        for(int child = 0; child < 3; child++){
+            sem_wait(father_sem);
+            for(int task = 0; task < 2; task++){
+                printf("Child #%d was %s\n\n", (child + 1), father_tasks[task]);
+            }
         }
+        sem_post(mother_mutex);
     }
-    sem_post(mother_mutex);
    return NULL;
 } 
 
