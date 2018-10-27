@@ -3,8 +3,8 @@
 #include <pthread.h>
 #include "passenger.h"
 
-int main(int argc, char *argv[]) {
-	int numOfPass = *argv[1] - '0';
+int main(int argc, char **argv) {
+	int numOfPass = atoi(argv[1]);
 //	int numOfBag = *argv[2] - '0';
 //	int numOfSec = *argv[3] - '0';
 //	int numOfAtten = *argv[4] - '0';
