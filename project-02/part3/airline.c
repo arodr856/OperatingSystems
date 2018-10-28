@@ -3,7 +3,6 @@
 #include <pthread.h>
 #include "passenger.h"
 
-passenger *p = (passenger *) malloc(sizeof(passenger)); // global
 
 sem_t *air_sem; // semaphore
 
@@ -15,23 +14,25 @@ int main(int argc, char **argv) {
 	int numOfSec = atoi(argv[3]);
 	int numOfAtt = atoi(argv[4]);
 
+
+	passenger *p = (passenger *) malloc(sizeof(passenger)); // create pointer to passenger 
+
 	p = createPassengers(numOfPass); // created struct of passengers
 
 //	int passNum = p[0].number;	// test to we can get number element from passenger	
 
-	// thread creationg for bag handler
+	// thread creation for bag handler
 	int numBReturned[numOfBag]; // number returned for bag handler threads
 	pthread_t bThread[numOfBag]; // create an array of bag handler threads
     for (int i = 0; i < numOfBag; i++) {
-         pthread_attr_t attr;
-         pthread_attr_init(&attr);
-         pthread_create(&tids[i], &attr, sum_runner, &args[i]);
+         pthread_create(&bThread[i], NULL, checkBag, p[i]);
          if (numBReturned[i] != 0) {
             printf("Uh-oh!\n");
             return -1;
          }
     }
 
+	/*
 	// thread creation for secuirty screener
 	int numSReturned[numOfSec]; // number returned for security screener threads
 	pthread_t sThread[numOfPass]; // create an array of secuirty screener threads
@@ -70,17 +71,6 @@ int main(int argc, char **argv) {
             return -1;
          }
     }
-
-
-
-//  int numBReturned[numOfBag];
-//  pthread_t bThread[numOfBag];
-  
-// int numSReturned[numOfSec];
-//  pthread_t sThread[numOfSec];
-
-//int numAReturned[numOfAtten];
-//  pthread_t aThread[numOfAtten];
-
+*/
 	return 0;
 }

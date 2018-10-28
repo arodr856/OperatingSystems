@@ -23,7 +23,7 @@ bool isWaiting(passenger *p) {
 		return false;
 }
 
-void checkBaggage(passenger *p) {
+void checkBag(passenger *p) {
 	p->baggageChecked = true;
 }
 

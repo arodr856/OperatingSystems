@@ -13,7 +13,7 @@ typedef struct airplane_passenger {
 
 passenger *createPassengers( int numberOfPassengers);
 bool isWaiting(passenger *p);
-void checkBaggage(passenger *p);
+void checkBag(passenger *p);
 void screen(passenger *p);
 void seat(passenger *p);
 void relaxed(passenger *p);
