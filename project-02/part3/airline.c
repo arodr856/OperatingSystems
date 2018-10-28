@@ -5,8 +5,11 @@
 #include "passenger.h"
 
 
-
-sem_t *air_sem; // semaphore
+int count = 0;
+sem_t sem_Bag; // semaphore
+sem_t sem_Sec;
+sem_t sem_Att;
+sem_t sem_Pas;
 
 int main(int argc, char **argv) {
 
@@ -47,24 +50,15 @@ int main(int argc, char **argv) {
          }
     }
 
-	for (int i = 0; i < numOfBag; i++) {
-		pthread_join(bthread[i], NULL);
-	}
+		
 
-	bool resultBag = p[1].baggageChecked;
-	
-	printf("%s\n", resultBag ? "true" : "false");
-
-	
-
-	/*
 	// thread creation for secuirty screener
 	int numSReturned[numOfSec]; // number returned for security screener threads
-	pthread_t sThread[numOfPass]; // create an array of secuirty screener threads
+	pthread_t sThread[numOfSec]; // create an array of secuirty screener threads
     for (int i = 0; i < numOfSec; i++) {
          pthread_attr_t attr;
          pthread_attr_init(&attr);
-         pthread_create(&tids[i], &attr, sum_runner, &args[i]);
+         numSReturned[i] = pthread_create(&sThread[i], NULL, screen, &p[i]);
          if (numSReturned[i] != 0) {
             printf("Uh-oh!\n");
             return -1;
@@ -75,9 +69,7 @@ int main(int argc, char **argv) {
 	int numAReturned[numOfAtt]; // number returned for security screener threads
 	pthread_t aThread[numOfAtt]; // create an array of secuirty screener threads
     for (int i = 0; i < numOfAtt; i++) {
-         pthread_attr_t attr;
-         pthread_attr_init(&attr);
-         pthread_create(&tids[i], &attr, sum_runner, &args[i]);
+         numAReturned[i] = pthread_create(&athread[i], NULL, seat, &p[i]);
          if (numAReturned[i] != 0) {
             printf("Uh-oh!\n");
             return -1;
@@ -88,14 +80,25 @@ int main(int argc, char **argv) {
 	int numPReturned[numOfPas]; // number returned for passenger  threads
 	pthread_t pThread[numOfPas]; // create an array of passenger threads
     for (int i = 0; i < numOfPas; i++) {
-         pthread_attr_t attr;
-         pthread_attr_init(&attr);
-         pthread_create(&tids[i], &attr, sum_runner, &args[i]);
+         numPReturned[i] = pthread_create(&pThread[i], NULL, isWaiting, &p[i]);
          if (numPReturned[i] != 0) {
             printf("Uh-oh!\n");
             return -1;
          }
     }
-*/
+
+	for (int i = 0; i < numOfBag; i++) {
+		pthread_join(bThread[i], NULL);
+		pthread_join(sThread[i], NULL);
+		pthread_join(aThread[i], NULL);
+		pthread_join(pThread[i], NULL);
+
+	}
+
+	bool resultBag = p[1].baggageChecked;
+	printf("%s\n", resultBag ? "true" : "false");
+	bool resultScreen = p[1].screened; 
+	printf("%s\n", resultScreen ? "true" : "false");
+	
 	return 0;
 }
