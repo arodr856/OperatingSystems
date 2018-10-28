@@ -1,5 +1,6 @@
 #include "passenger.h"
 #include <stdlib.h>
+#include <semaphore.h>
 
 passenger *createPassengers(int numberOfPassengers) {
 	passenger *passengers = (passenger *) malloc(sizeof(passenger) * numberOfPassengers);
@@ -23,6 +24,7 @@ bool isWaiting(passenger *p) {
 }
 
 void checkBag(passenger *p) {
+	printf("Passenger #%d is waiting at baggage processing for a handler.\n", p->number);
 	p->baggageChecked = true;
 }
 
@@ -31,6 +33,7 @@ void screen(passenger *p) {
 }
 
 void seat(passenger *p) {
+	printf("Passenger #%d has been seated and relaxes.\n", p->number);
 	p->seated = true;
 }
 
