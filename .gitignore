@@ -14,6 +14,8 @@
 !project-02/**/*.pdf
 !project-02/**/*.h
 !project-03
+!project-03/part1
+!project-03/part2
 !project-03/**/*.pdf
 !project-03/**/*.c
 !project-03/**/*.txt
