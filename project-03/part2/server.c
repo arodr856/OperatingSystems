@@ -6,7 +6,7 @@
 #include <stdlib.h> 
 #include <netinet/in.h> 
 #include <string.h> 
-
+// PORT # must be changed it not working, 
 #define PORT 8080 
 
 char** splitString(char* strings);
