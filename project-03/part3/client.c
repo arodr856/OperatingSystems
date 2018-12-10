@@ -1,5 +1,4 @@
-//#include "project_3.h"
-
+// server side C/C++ program to demonstrate Socket programming
 #include <stdio.h>
 #include <sys/types.h>
 #include <unistd.h>
