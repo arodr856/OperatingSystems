@@ -117,7 +117,6 @@ void resetfTab(){
 	for(i=0;i<FS;i++)
 	{
 		fTab[i].fname=(char *)malloc(sizeof(char)*9);
-	//	fTab[i].pDir=(char *)malloc(sizeof(char)*9);
 		strcpy(fTab[i].fname,"\0");
 		//strcpy(fTab[i].pDir,"\0");
 		//fTab[i].pDir=NULL;
@@ -163,23 +162,6 @@ int freeTablk(){
 			return i;
 	}
 }
-
-/*int fileres(int ind){
-	printf("fBlkreset : \n");
-	if(ind==0)
-		{
-			int st=0,temp=0;
-			st=0;
-			while(fFat[st].nxt!=1){
-				temp=fFat[st].nxt;
-				fFat[st].nxt=0;
-				st=temp;
-				fFat[st].fb=0;
-			}
-			return 1;
-	}
-	return 0;
-}*/
 
 //Reset the file block for for the passed filename to be over written
 int fBlkreset(char *name){
@@ -279,78 +261,6 @@ int sget(int b){
 	int sc=(b%sec)+1;
 		return sc;
 }
-
-/*int wfTab()
-{
-	memset(pFile,'\0',SIZE);
-	for(i=0;i<FS;i++)
-	{
-		sprintf(pFile+(i*strlen(pFile)),"%s %d %d %d %d|",fTab[i].fname,fTab[i].fsize,fTab[i].stblk,fTab[i].dir,fTab[i].pDir);
-	}
-	printf("FileTable : %s\n",pFile);
-	nread=0;
-	int blkcnt=0;
-	int freebcnt=0;
-	int fInd=0;
-	//fInd=fileExists(name);
-	int stblk=0;
-	int nxtblk;
-	int dlen=0;
-	int t=0,s=0;
-	int nf=0;
-	int sfb;
-	 int len=strlen(pFile);
-	printf("fWrite data : %s\n",pFile);
-	//char *w;
-	//w=(char *)malloc(sizeof(char)*2);
-	//strcpy(w,"W");
-
-
-	freebcnt=freeBlkCnt();
-	blkcnt=Blkcnt(len);
-
-	if(freebcnt<blkcnt){
-		return 2;
-	}
-	if(fileres(0)!=1)
-	{
-		return 3;
-	}
-	sfb=stblk=0;
-	printf("Start blk : %d\n",stblk);
-	//fTab[fInd].fsize=len;
-
-	//printf("blkcnt = %d\n",blkcnt);
-	for(i=1;i<=blkcnt;i++)
-	{
-		fFat[stblk].fb=sfb;
-		memset(wrbuf,'\0',BS);
-		dlen=(i-1)*BS;
-		memcpy(wrbuf,pFile+dlen,BS);
-		t=tget(stblk);
-		s=sget(stblk);
-		//printf("wrbuf = %s\n",wrbuf);
-		sprintf(ftemp,"%s %d %d %ld %s","W",t,s,strlen(wrbuf),wrbuf);
-		printf("Request to send in fWrite: %s\n",ftemp);
-		nread=write(sockfd,ftemp,strlen(ftemp));
-		nread = read(sockfd, buf,SIZE);
-		if (i == blkcnt) {
-			fFat[stblk].fb=stblk;
-			fFat[stblk].nxt = 1;
-		} else {
-			nf = freeBlk();
-			fFat[stblk].fb=stblk;
-			fFat[stblk].nxt = nf;
-			stblk=nf;
-			printf("fFat[stblk].fb : %d,nxt : %d,stblk: %d\n",fFat[stblk].fb,fFat[stblk].nxt,stblk);
-		}
-	}
-	fDetail(fInd);
-	return 0;
-}
-*/
-
-
 
 /**************************************************************************************************************************************************
    *
@@ -517,25 +427,7 @@ int fRead(char *name)
 	{
 		return 2;
 	}
-	/*len=fTab[fInd].fsize;
-	blkcnt=Blkcnt(len);
-	for(i=1;i<=blkcnt;i++){
-		dlen=(i-1)*BS;
-		t=tget(stblk);
-		s=sget(stblk);
-		sprintf(ftemp,"%s %d %d","R",t,s);
-		nread = write(sockfd, ftemp, strlen(ftemp));
-		memset(ftemp, '\0', SIZE);
-		nread = read(sockfd, buf, SIZE);
-		strcat(tem, buf + 1);
-		printf("tem : %s\n",tem);
-		totlen=strlen(tem);
-		printf("nread : %d totlen :%d\n",nread,totlen);
-		if(fFat[stblk].nxt!=1)
-				{
-					stblk=fFat[stblk].nxt;
-				}
-	}*/
+
 	while (1)
 	{
 		t=tget(stblk);
@@ -580,9 +472,6 @@ int fWrite(char *name,char *data,int len)
 	int nf=0;
 	int sfb;
 	printf("fWrite data : %s\n",data);
-	//char *w;
-	//w=(char *)malloc(sizeof(char)*2);
-	//strcpy(w,"W");
 
 	if(fInd==-1)
 	{
@@ -609,7 +498,6 @@ int fWrite(char *name,char *data,int len)
 		memcpy(wrbuf,data+dlen,BS);
 		t=tget(stblk);
 		s=sget(stblk);
-		//printf("wrbuf = %s\n",wrbuf);
 		sprintf(ftemp,"%s %d %d %ld %s","W",t,s,strlen(wrbuf),wrbuf);
 		printf("Request to send in fWrite: %s\n",ftemp);
 		nread=write(sockfd,ftemp,strlen(ftemp));
@@ -643,10 +531,8 @@ int dCreate(char *name)
 {
 	int i;
 	int frblk=freeBlk();
-	//printf("freeblk in fcreate : %d\n\n",frblk);
 	int frtab=freeTablk();
 	int fInd=dirExists(name);
-	// printf("File Name in fcreate: %s\n\n ",name);
 
 		if(fInd!=-1&&(fTab[fInd].dir==1))
 		{
@@ -776,8 +662,6 @@ int main(int argc,char *argv[])
 
    fTab=(fileTable *)malloc(sizeof(fileTable)*FS);
    int fTabSize=sizeof(fileTable)*FS;
-   //fTab[0].pDir=(char *)malloc(sizeof(char)*FS);
-   //printf("SIZE OF long int : %ld\n\n\n",sizeof(int));
    printf("SIZE OF FILE TABLE : %ld\n\n\n",sizeof(fileTable)*FS);
    resetfTab();
 
@@ -917,8 +801,6 @@ int main(int argc,char *argv[])
 
 
      	      	fnread=read(fclient_sockfd,fbuf,SIZE);
-     	      	//printf("\nValue read from fclient : %s\n",fbuf);
-     	      	//fbuf[fnread]='\0';
      	      	if(fnread==0){
      	          	printf("\nClosing Client\n");
      	          	break;
@@ -937,15 +819,12 @@ int main(int argc,char *argv[])
      	      	    }else if(strcasecmp(cmd,"cd")==0)
      	      	    {
      	      	    	cmdID=8;
-     	      	    	//printf("\nRequest Cmd and CmdID : %s %d\n",cmd,cmdID);
      	      	    }else if(strcasecmp(cmd,"pwd")==0)
      	      	    {
      	      	    	cmdID=9;
-     	      	    	//printf("\nRequest Cmd and CmdID : %s %d\n",cmd,cmdID);
      	      	    }else if(strcasecmp(cmd,"rmdir")==0)
      	      	    {
      	      	    	cmdID=10;
-     	      	    	//printf("\nRequest Cmd and CmdID : %s %d\n",cmd,cmdID);
      	      	    }else if(strcasecmp(cmd,"help")==0){
      	      	    	cmdID=11;
      	      	    }
@@ -968,7 +847,6 @@ int main(int argc,char *argv[])
      	      	    	else
      	      	    		cmdID=0;
      	      	    		ch='\0';
-     	      	    	//printf("\nRequest Cmd and CmdID : %c %d\n",ch,cmdID);
      	      	    }else{
      	      	    	cmdID=0;
      	      	    }
@@ -1193,7 +1071,6 @@ int main(int argc,char *argv[])
      	      	    	memset(ftemp,'\0',SIZE);
      	      	    	strcat(ftemp,pwd[0]);
      	      	    	for(i=1;i<20;i++){
-     	      	    		//printf("PWD : %s\n",pwd[i]);
      	      	    		strcat(ftemp,pwd[i]);
      	      	    	}
      	      	    	fnread = write(fclient_sockfd, ftemp, strlen(ftemp));
