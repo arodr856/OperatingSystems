@@ -24,16 +24,16 @@ int main(int argc, char const *argv[])
     serv_addr.sin_port = htons(PORT);
 
     if (inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr) <= 0){
-        printf("\nInvalid address/ Address not supported \n");
+        printf("\nInvalid address/ Address not found \n");
         return -1;
     }
 
     if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0){
-        printf("\nConnection Failed \n");
+        printf("\n no connection \n");
         return -1;
     }
     send(sock, hello, strlen(hello), 0);
-    printf("Hello message sent\n");
+    printf("How are you\n");
     valread = read(sock, buffer, 1024);
     printf("%s\n", buffer);
     return 0;
