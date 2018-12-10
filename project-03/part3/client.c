@@ -1,4 +1,4 @@
-// server side C/C++ program to demonstrate Socket programming
+// client side C/C++ program to demonstrate Socket programming
 #include <stdio.h>
 #include <sys/types.h>
 #include <unistd.h>
