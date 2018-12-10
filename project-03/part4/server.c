@@ -118,8 +118,6 @@ void resetfTab(){
 	{
 		fTab[i].fname=(char *)malloc(sizeof(char)*9);
 		strcpy(fTab[i].fname,"\0");
-		//strcpy(fTab[i].pDir,"\0");
-		//fTab[i].pDir=NULL;
 		fTab[i].stblk=0;
 		fTab[i].dir=F;
 		fTab[i].fsize=0;
@@ -161,6 +159,7 @@ int freeTablk(){
 		if(fTab[i].stblk==0)
 			return i;
 	}
+	return 0;
 }
 
 //Reset the file block for for the passed filename to be over written
@@ -591,6 +590,7 @@ int changeDir(char* name){
 		currdir=dInd;
 		return 0;
 	}
+	return 0;
 }
 
 /*
@@ -1125,5 +1125,6 @@ int main(int argc,char *argv[])
    }
    close(sockfd);
    exit(0);
+   return 0;
 }
 
