@@ -1,5 +1,4 @@
 
-// Server side C/C++ program to demonstrate Socket programming 
 #include <unistd.h> 
 #include <stdio.h> 
 #include <sys/socket.h> 
@@ -22,7 +21,6 @@ int main(int argc, char const *argv[])
         exit(EXIT_FAILURE); 
     } 
        
-    // Forcefully attaching socket to the port 8080 
     if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEPORT, &opt, sizeof(opt))){ 
         perror("setsockopt"); 
         exit(EXIT_FAILURE); 
@@ -32,7 +30,6 @@ int main(int argc, char const *argv[])
     address.sin_addr.s_addr = INADDR_ANY; 
     address.sin_port = htons( PORT ); 
        
-    // Forcefully attaching socket to the port 8080 
     if (bind(server_fd, (struct sockaddr *)&address, sizeof(address))<0){ 
         perror("bind failed"); 
         exit(EXIT_FAILURE); 
