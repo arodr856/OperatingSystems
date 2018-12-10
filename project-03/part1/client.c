@@ -24,7 +24,7 @@ int main(int argc, char const *argv[])
     serv_addr.sin_port = htons(PORT);
 
     if (inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr) <= 0){
-        printf("\nInvalid address/ Address not found \n");
+        printf("\nInvalid address/ Address located \n");
         return -1;
     }
 
