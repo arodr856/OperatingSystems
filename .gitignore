@@ -17,7 +17,12 @@
 !project-03/part1
 !project-03/part2
 !project-03/part3
+!project-03/part4
 !project-03/**/*.pdf
 !project-03/**/*.c
 !project-03/**/*.txt
 !project-03/Makefile
+!project-04/**/*.pdf
+!project-04/**/*.c
+!project-04/**/*.txt
+!project-04/Makefile
