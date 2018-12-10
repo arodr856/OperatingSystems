@@ -12,11 +12,6 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 
-#define SA struct sockaddr
-
-#define PORT 6969
-
-
 
 #define SIZE 1024
 char buf[SIZE];

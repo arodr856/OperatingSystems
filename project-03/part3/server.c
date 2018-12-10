@@ -6,7 +6,9 @@
 #include <string.h>
 #include <fcntl.h>
 #include <sys/mman.h>
-#define PORT 6969
+#include <sys/types.h>
+#include <unistd.h>
+#include <ctype.h>
 
 #define SIZE 1024
 char buf[SIZE];
